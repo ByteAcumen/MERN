@@ -2,15 +2,15 @@
 // console.log("hello this is Hemanth")
 // console.log("My name is Hemanth")
 
-const express = require("express");
-const task = require("./Task");
-const app = express();
+// const express = require("express");
+// const task = require("./Task");
+// const app = express();
 
-const port = 8000;
+// const port = 8000;
 
-app.get("/", task.home);
-app.get("/about", task.about);
-app.get("/index.html", task["index.html"]);
+// app.get("/", task.home);
+// app.get("/about", task.about);
+// app.get("/index.html", task["index.html"]);
 
 
 // app.get("/", (req, res) => {
@@ -52,9 +52,42 @@ app.get("/index.html", task["index.html"]);
 //     res.send(`User ID: ${userId}`);
 // });
 
-app.listen(port, (e) =>{
-    if (e) throw e;
-    else{
-        console.log(`http://localhost:${port}`);
-    }
-})
+const express = require("express");
+const task = require("./Task");
+const userRouter = require("./middleware");
+
+const app = express();
+const port = 8000;
+
+// static files (css, html)
+app.use(express.static("public"));
+app.use(express.static("pages"));
+
+// Serve main index.html at root
+app.get("/home", (req, res) => {
+    res.sendFile(__dirname + "/public/index.html");
+});
+
+// normal routes
+app.get("/", task.home);
+app.get("/about", task.about);
+app.get("/contact", task.contact);
+app.get("/user/:username", task.username);
+app.get("/search", task.search);
+app.get("/contact.html", task.index_html);
+
+// middleware routes
+app.use("/user", userRouter);
+
+app.listen(port, () => {
+  console.log(`http://localhost:${port}`);
+});
+
+
+// app.listen(port, (e) =>{
+//     if (e) throw e;
+//     else{
+//         console.log(`http://localhost:${port}`);
+//     }
+// })
+

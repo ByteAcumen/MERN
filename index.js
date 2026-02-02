@@ -8,7 +8,7 @@ const port = 3000;
 //         res.writeHead(200,{'Content-Type':'text/html'});
 //         res.write("<h1>hello this is Home pages</h1>")
 //         res.end();
-//     }
+//     }        
 //     else if(req.url == "./about"){
 //         res.writeHead(200,{'Content-Type':'text/html'});
 //         res.write("<h1>This is About Page</h1>")
